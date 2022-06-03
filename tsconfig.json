@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
     "target": "es5",
     "sourceMap": true,
     "baseUrl": ".",
@@ -22,7 +21,8 @@
     "jsx": "preserve",
     "noImplicitAny": true,
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "module": "esnext"
   },
   "exclude": [
     "node_modules"
