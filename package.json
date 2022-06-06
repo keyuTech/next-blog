@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "typeorm": "typeorm-ts-node-commonjs"
+    "typeorm": "typeorm-ts-node-commonjs",
+    "typeorm:build": "npx babel -w ./src --out-dir dist --extensions \".ts,.tsx\"",
+    "migration:run": "typeorm migration:run"
   },
   "dependencies": {
     "@babel/cli": "^7.17.10",
