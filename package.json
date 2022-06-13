@@ -9,7 +9,7 @@
     "lint": "next lint",
     "typeorm": "typeorm-ts-node-commonjs",
     "typeorm:build": "npx babel -w ./src --out-dir dist --extensions \".ts,.tsx\"",
-    "migration:run": "typeorm migration:run"
+    "migration:run": "typeorm migration:run -d dist/data-source.js"
   },
   "dependencies": {
     "@babel/cli": "^7.17.10",
@@ -24,7 +24,8 @@
     "sass": "^1.52.1",
     "swr": "^1.3.0",
     "typeorm": "^0.3.6",
-    "typescript": "^4.6.4"
+    "typescript": "^4.6.4",
+    "yarn": "^1.22.18"
   },
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.18.2",
