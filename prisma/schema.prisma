@@ -13,6 +13,8 @@ model User {
   id Int  @id @default(autoincrement())
   username String  @db.VarChar(200)
   password_digest String @db.VarChar(200)
+  posts Post[]
+  comments Comment[]
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
@@ -20,15 +22,19 @@ model Post {
   id Int @id @default(autoincrement())
   title String @db.VarChar(50)
   content String @db.Text
-  author_id Int
+  author User @relation(fields: [author_id], references: [id])
+  author_id Int @unique
+  comments Comment[]
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
 model Comment {
   id Int @id @default(autoincrement())
   content String @db.Text
-  author_id Int
-  post_id Int
+  author User @relation(fields: [author_id], references: [id])
+  author_id Int @unique
+  post Post @relation(fields: [post_id], references: [id])
+  post_id Int @unique
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
