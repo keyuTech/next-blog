@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prisma:build": "npx babel -w ./prisma --out-dir dist --extensions \".ts,.tsx\""
+    "prisma:build": "npx babel ./prisma --out-dir dist --extensions \".ts,.tsx\""
   },
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
