@@ -10,7 +10,7 @@ const main = async () => {
     },
     update: {}
   });
-  console.log('create user');
+  console.log('upsert user');
   const post1 = await prisma.post.upsert({
     where: {id: 1},
     create: {
@@ -23,8 +23,10 @@ const main = async () => {
     },
     update: {}
   })
-  const comment1 = await prisma.comment.create({
-    data: {
+  console.log('upsert post');
+  const comment1 = await prisma.comment.upsert({
+    where: {id:1},
+    create: {
       content: 'comment 1',
       author: {
         connect: {id: 1}
@@ -32,8 +34,10 @@ const main = async () => {
       post: {
         connect: {id: 1}
       }
-    }
+    },
+    update: {}
   })
+  console.log('upsert comment');
 };
 
 main().catch((e) => {
