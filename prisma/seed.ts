@@ -1,6 +1,5 @@
-import { PrismaClient } from '@prisma/client';
+import prisma from '../lib/prisma'
 
-const prisma = new PrismaClient();
 const main = async () => {
   const user1 = await prisma.user.upsert({
     where: {id: 1},
@@ -8,7 +7,10 @@ const main = async () => {
       username: 'user1',
       password_digest: 'aaa'
     },
-    update: {}
+    update: {
+      username: 'user1',
+      password_digest: 'aaa'
+    }
   });
   console.log('upsert user');
   const post1 = await prisma.post.upsert({
