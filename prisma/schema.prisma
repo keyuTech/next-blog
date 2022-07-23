@@ -11,7 +11,7 @@ datasource db {
 }
 model User {
   id Int  @id @default(autoincrement())
-  username String  @db.VarChar(200)
+  username String  @db.VarChar(200) @unique
   password_digest String @db.VarChar(200)
   posts Post[]
   comments Comment[]
@@ -23,7 +23,7 @@ model Post {
   title String @db.VarChar(50)
   content String @db.Text
   author User @relation(fields: [author_id], references: [id])
-  author_id Int @unique
+  author_id Int
   comments Comment[]
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
@@ -32,9 +32,9 @@ model Comment {
   id Int @id @default(autoincrement())
   content String @db.Text
   author User @relation(fields: [author_id], references: [id])
-  author_id Int @unique
+  author_id Int
   post Post @relation(fields: [post_id], references: [id])
-  post_id Int @unique
+  post_id Int
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
