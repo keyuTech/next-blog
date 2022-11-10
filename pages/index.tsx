@@ -15,12 +15,16 @@ interface Props {
 
 const Home: NextPage<Props> = (props) => {
   const {user} = props
+  const handleClick = () => {
+    console.log(111);
+  }
   return (
     <div>
       <main>
         <p className={"text-3xl"}>tailwind test</p>
         <Image src={png} alt="image"/>
         {user.map(u => <p className={"text-3xl"} key={u.id}>{u.username}</p>)}
+        <button onClick={handleClick}>aaa</button>
       </main>
     </div>
   )
