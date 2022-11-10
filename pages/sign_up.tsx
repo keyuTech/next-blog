@@ -10,10 +10,10 @@ interface UserFormData {
   passwordConfirmation: string;
 }
 
-interface UserError {
-  username?: string;
-  password?: string;
-  passwordConfirmation?: string;
+interface UserErrors {
+  username?: string[];
+  password?: string[];
+  passwordConfirmation?: string[];
 }
 
 const SignUp: NextPage = () => {
@@ -22,14 +22,14 @@ const SignUp: NextPage = () => {
     password: "",
     passwordConfirmation: "",
   });
-  const [userError, setUserError] = useState<UserError>({});
+  const [userErrors, setUserErrors] = useState<UserErrors>({});
   const handleSubmit = useCallback(
     (e: FormEvent) => {
       e.preventDefault();
       axios.post(`/api/v1/users`, formData).then(
         () => {},
-        (error: AxiosError<UserError>) => {
-          setUserError({ ...userError, ...error.response?.data });
+        (error: AxiosError<UserErrors>) => {
+          setUserErrors({ ...userErrors, ...error.response?.data });
         }
       );
     },
@@ -41,40 +41,49 @@ const SignUp: NextPage = () => {
       <h1>注册</h1>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>用户名</label>
-          <input
-            className="bg-gray-200"
-            type="text"
-            value={formData.username}
-            onChange={(e) => {
-              setFormData({ ...formData, username: e.target.value });
-            }}
-          />
+          <label>
+            用户名
+            <input
+              className="bg-gray-200"
+              type="text"
+              value={formData.username}
+              onChange={(e) => {
+                setFormData({ ...formData, username: e.target.value });
+              }}
+            />
+          </label>
+          {!!userErrors.username?.length && <p>{userErrors.username[0]}</p>}
         </div>
         <div>
-          <label>密码</label>
-          <input
-            className="bg-gray-200"
-            type="password"
-            value={formData.password}
-            onChange={(e) => {
-              setFormData({ ...formData, password: e.target.value });
-            }}
-          />
+          <label>
+            密码
+            <input
+              className="bg-gray-200"
+              type="password"
+              value={formData.password}
+              onChange={(e) => {
+                setFormData({ ...formData, password: e.target.value });
+              }}
+            />
+          </label>
+          {!!userErrors.password?.length && <p>{userErrors.password[0]}</p>}
         </div>
         <div>
-          <label>重复密码</label>
-          <input
-            className="bg-gray-200"
-            type="password"
-            value={formData.passwordConfirmation}
-            onChange={(e) => {
-              setFormData({
-                ...formData,
-                passwordConfirmation: e.target.value,
-              });
-            }}
-          />
+          <label>
+            重复密码
+            <input
+              className="bg-gray-200"
+              type="password"
+              value={formData.passwordConfirmation}
+              onChange={(e) => {
+                setFormData({
+                  ...formData,
+                  passwordConfirmation: e.target.value,
+                });
+              }}
+            />
+          </label>
+          {!!userErrors.passwordConfirmation?.length && <p>{userErrors.passwordConfirmation[0]}</p>}
         </div>
         <div>
           <button type={"submit"}>注册</button>
