@@ -1601,6 +1601,11 @@
   resolved "https://registry.npmmirror.com/@types/json5/-/json5-0.0.29.tgz#ee28707ae94e11d2b827bcbe5270bcea7f3e71ee"
   integrity sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==
 
+"@types/lodash@^4.14.188":
+  version "4.14.188"
+  resolved "https://registry.npmmirror.com/@types/lodash/-/lodash-4.14.188.tgz#e4990c4c81f7c9b00c5ff8eae389c10f27980da5"
+  integrity sha512-zmEmF5OIM3rb7SbLCFYoQhO4dGt2FRM9AMkxvA3LaADOF1n8in/zGJlWji9fmafLoNyz+FoL6FE0SLtGIArD7w==
+
 "@types/node@*":
   version "18.0.5"
   resolved "https://registry.npmmirror.com/@types/node/-/node-18.0.5.tgz#96be8113b014e9e7f0c3609c4a25afadd85ff659"
@@ -1671,6 +1676,13 @@
   version "2.0.1"
   resolved "https://registry.npmmirror.com/@types/stack-utils/-/stack-utils-2.0.1.tgz#20f18294f797f2209b5f65c8e3b5c8e8261d127c"
   integrity sha512-Hl219/BT5fLAaz6NDkSuhzasy49dwQS/DSdu4MdggFB8zcXv7vflBI3xp7FEmkmdDkBUI2bPUNeMttp2knYdxw==
+
+"@types/superstruct@^0.8.2":
+  version "0.8.2"
+  resolved "https://registry.npmmirror.com/@types/superstruct/-/superstruct-0.8.2.tgz#60c7d52e0b7a4c7cc819d1f0a43b36c1d56f0bd4"
+  integrity sha512-iM57MTPOXVkLwvo5Md6X5YhAszcJmuLlO6u5Z+JGzxTQ/3uHoZTKdWhjs408QJ27+NphS3kPgSSbqJWBSPsegg==
+  dependencies:
+    superstruct "*"
 
 "@types/swagger-ui-react@^4.11.0":
   version "4.11.0"
@@ -5681,6 +5693,11 @@ styled-jsx@5.0.2:
   version "5.0.2"
   resolved "https://registry.npmmirror.com/styled-jsx/-/styled-jsx-5.0.2.tgz#ff230fd593b737e9e68b630a694d460425478729"
   integrity sha512-LqPQrbBh3egD57NBcHET4qcgshPks+yblyhPlH2GY8oaDgKs8SK4C3dBh3oSJjgzJ3G5t1SYEZGHkP+QEpX9EQ==
+
+superstruct@*, superstruct@^0.16.7:
+  version "0.16.7"
+  resolved "https://registry.npmmirror.com/superstruct/-/superstruct-0.16.7.tgz#78bb71209d71e6107a260afc166580b137bd243a"
+  integrity sha512-4ZZTrXlP4XzCrgh4vOfPDL6dL7zZm5aPl78eczwFSrwvxtsEnKRrSGID6Sbt0agycUoo4auRdWSNTX+oQ3KFyA==
 
 supports-color@^5.3.0:
   version "5.5.0"

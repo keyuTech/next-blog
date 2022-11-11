@@ -27,8 +27,13 @@ const SignUp: NextPage = () => {
     (e: FormEvent) => {
       e.preventDefault();
       axios.post(`/api/v1/users`, formData).then(
-        () => {},
+        () => {
+          window.alert('注册成功')
+          window.location.href = '/sign_in'
+        },
         (error: AxiosError<UserErrors>) => {
+          console.log(error);
+          
           setUserErrors({ ...userErrors, ...error.response?.data });
         }
       );
@@ -38,7 +43,7 @@ const SignUp: NextPage = () => {
 
   return (
     <>
-      <h1>注册</h1>
+      <h1 className="text-3xl">注册</h1>
       <form onSubmit={handleSubmit}>
         <div>
           <label>
