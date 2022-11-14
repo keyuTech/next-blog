@@ -37,3 +37,6 @@ yarn-error.log*
 /blog-data
 /dist
 .idea
+
+#env-local
+.env.local

@@ -1,6 +1,6 @@
 import crypto from "crypto";
 // 密匙
-const SECRET_KEY = "SEELE-BLOG";
+const SECRET_KEY = process.env.SECRET_KEY;
 
 // md5 加密
 function md5(content: string) {
