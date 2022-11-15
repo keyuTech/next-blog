@@ -1,6 +1,8 @@
-import { NextPage } from "next";
+import { GetServerSideProps, NextPage } from "next";
 import axios, { AxiosError } from "axios";
 import { FormEvent, useCallback, useState } from "react";
+import { withSessionSsr } from "lib/withSession";
+import { UserRes } from "./api/v1/users";
 
 interface SignInFormData {
   username: string;
@@ -12,7 +14,7 @@ interface SignInErrors {
   password?: string[];
 }
 
-const SignIn: NextPage = () => {
+const SignIn: NextPage<{user: UserRes}> = (props) => {
   const [formData, setFormData] = useState<SignInFormData>({
     username: "",
     password: "",
@@ -74,3 +76,11 @@ const SignIn: NextPage = () => {
 };
 
 export default SignIn;
+
+export const getServerSideProps: GetServerSideProps = withSessionSsr(async ({req}) => {
+  return {
+    props: {
+      user: req.session.user || null
+    }
+  }
+})

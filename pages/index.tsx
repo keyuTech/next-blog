@@ -16,7 +16,7 @@ interface Props {
 const Home: NextPage<Props> = (props) => {
   const {user} = props
   const handleClick = () => {
-    console.log(111);
+    console.log('onClick');
   }
   return (
     <div>

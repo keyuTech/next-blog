@@ -2,6 +2,7 @@ import { NextApiHandler } from "next";
 import prisma from "lib/prisma";
 import { genPassword } from "pages/utils/crypto";
 import _ from 'lodash'
+import { User } from "@prisma/client";
 
 /**
  * @swagger
@@ -18,6 +19,8 @@ import _ from 'lodash'
  *       200:
  *         description: hello world
  */
+
+export type UserRes = Omit<User, 'password_digest'>
 
 interface UserErrors {
   username: string[];
@@ -60,8 +63,6 @@ const Users: NextApiHandler = async (req, res) => {
       username,
       password_digest: genPassword(password),
     });
-    console.log("result");
-    console.log(result);
     res.statusCode = 200;
     res.write(JSON.stringify(_.omit(result, ['password_digest'])));
   }

@@ -2,17 +2,21 @@ import { NextApiHandler } from "next";
 import prisma from "lib/prisma";
 import { genPassword } from "pages/utils/crypto";
 import _ from 'lodash'
+import { withSessionApi } from "lib/withSession";
 
+// TODO: 校验
 const Session: NextApiHandler = async (req, res) => {
   const {username, password} = req.body
   res.setHeader('Content-Type', 'application/json;charset=utf-8')
   const user = await prisma.user.findUnique({where: {username}})
-  console.log('user');
-  console.log(user);
+  
   if (user) {
     if(user.password_digest === genPassword(password)) {
+      const result = _.omit(user, 'password_digest')
+      req.session.user = result
+      await req.session.save()
       res.statusCode = 200
-      res.write(JSON.stringify(_.omit(user, 'password_digest')))
+      res.write(JSON.stringify(result))
     } else {
       res.statusCode = 422
       res.write(JSON.stringify({password: ['密码不匹配']}))
@@ -24,4 +28,4 @@ const Session: NextApiHandler = async (req, res) => {
   res.end()
 };
 
-export default Session;
+export default withSessionApi(Session);

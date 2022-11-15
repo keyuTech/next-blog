@@ -21,6 +21,7 @@
     "@prisma/client": "4.0.0",
     "@types/superstruct": "^0.8.2",
     "axios": "^0.27.2",
+    "iron-session": "^6.3.1",
     "lodash": "^4.17.21",
     "next": "12.2.2",
     "react": "18.2.0",
