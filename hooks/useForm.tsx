@@ -18,8 +18,7 @@ interface useFormProps<T> {
     buttons: ReactElement[];
     submit: {
       request: (formData: T) => Promise<AxiosResponse<T>>;
-      message: string;
-      success?: () => void
+      success: () => void
     };
   };
 }
@@ -50,13 +49,16 @@ export function useForm<T extends Record<string, string | number>>({
     (e: FormEvent) => {
       e.preventDefault();
       submit.request(formData).then(
-        () => {
-          window.alert(submit.message);
-          submit.success?.()
-        },
+        submit.success,
         (error) => {
-          console.log(error);
-          setErrors({ ...errors, ...error.response?.data });
+          const response: AxiosResponse = error.response
+          if (response) {
+            if (response.status === 422) {
+              setErrors(response.data)
+            } else if (response.status === 401) {
+              window.location.href = `/sign_in?return_to=${encodeURIComponent(window.location.pathname)}`
+            }
+          }
         }
       );
     },

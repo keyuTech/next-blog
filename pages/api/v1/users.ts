@@ -56,7 +56,7 @@ const Users: NextApiHandler = async (req, res) => {
   
   res.setHeader("Content-Type", "application/json;charset=utf-8");
   if (hasError) {
-    res.statusCode = 400;
+    res.statusCode = 422;
     res.write(JSON.stringify(userErrors));
   } else {
     const result = await CreateUser({

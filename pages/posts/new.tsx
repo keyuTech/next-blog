@@ -12,8 +12,8 @@ const PostsNew: NextPage = (props) => {
       ],
       buttons: [<button key={'submit'} type="submit">提交</button>],
       submit: {
-        request: (formData) => axios.post("", formData),
-        message: "提交成功",
+        request: (formData) => axios.post(`/api/v1/posts`, formData),
+        success: () => window.alert("提交成功"),
       },
     },
   });
