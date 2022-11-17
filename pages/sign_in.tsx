@@ -3,9 +3,10 @@ import axios from "axios";
 import { withSessionSsr } from "lib/withSession";
 import { UserRes } from "./api/v1/users";
 import { useForm } from "hooks/useForm";
-import queryString from 'query-string'
+import { useRouter } from "next/router";
 
 const SignIn: NextPage<{ user: UserRes }> = (props) => {
+  const router = useRouter()
   const { form } = useForm({
     options: {
       initFormData: { username: "", password: "" },
@@ -22,7 +23,7 @@ const SignIn: NextPage<{ user: UserRes }> = (props) => {
         request: (formData) => axios.post(`/api/v1/session`, formData),
         success: () => {
           window.alert("登录成功");
-          const query = queryString.parse(window.location.search)
+          const query = router.query
           if (query?.return_to) {
             window.location.href = query.return_to.toString()
           }
