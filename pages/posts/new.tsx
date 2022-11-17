@@ -1,12 +1,28 @@
 import { NextPage } from "next";
-import prisma from "lib/prisma";
-import { Form } from "components/form";
+import { useForm } from "hooks/useForm";
+import axios from "axios";
 
 const PostsNew: NextPage = (props) => {
-  return <div>
-    post new
-    <Form fields={[{label: 'aa', type: 'text'}]} />
-  </div>;
+  const { form } = useForm({
+    options: {
+      initFormData: { title: "", content: "" },
+      fields: [
+        { label: "标题", type: "text", key: "title" },
+        { label: "内容", type: "textarea", key: "content" },
+      ],
+      buttons: [<button key={'submit'} type="submit">提交</button>],
+      submit: {
+        request: (formData) => axios.post("", formData),
+        message: "提交成功",
+      },
+    },
+  });
+  return (
+    <div>
+      post new
+      {form}
+    </div>
+  );
 };
 
 export default PostsNew;
