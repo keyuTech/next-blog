@@ -41,7 +41,7 @@ const PostsIndex: NextPage<Props> = (props) => {
 export default PostsIndex;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const page = parseInt(context.query.page?.toString() || "1");
+  const page = parseInt(context.query.page?.toString() || '1') || 1;
   const [posts, total] = await prisma.$transaction([
     prisma.post.findMany({ skip: (page - 1) * 2, take: 2 }),
     prisma.post.count(),
