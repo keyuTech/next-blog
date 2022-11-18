@@ -25,7 +25,9 @@ const SignIn: NextPage<{ user: UserRes }> = (props) => {
           window.alert("登录成功");
           const query = router.query
           if (query?.return_to) {
-            window.location.href = query.return_to.toString()
+            router.push({
+              pathname: query.return_to.toString()
+            })
           }
         },
       },

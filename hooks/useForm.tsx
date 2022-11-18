@@ -1,4 +1,5 @@
 import { AxiosResponse } from "axios";
+import { useRouter } from "next/router";
 import {
   ChangeEvent,
   FormEvent,
@@ -27,6 +28,8 @@ export function useForm<T extends Record<string, string | number>>({
   options,
 }: useFormProps<T>) {
   const { initFormData, fields, buttons, submit } = options;
+  const router = useRouter()
+  
   const [formData, setFormData] = useState<T>(initFormData);
   const [errors, setErrors] = useState(() => {
     const errors: { [key in keyof T]?: string[] } = {};
@@ -56,7 +59,10 @@ export function useForm<T extends Record<string, string | number>>({
             if (response.status === 422) {
               setErrors(response.data)
             } else if (response.status === 401) {
-              window.location.href = `/sign_in?return_to=${encodeURIComponent(window.location.pathname)}`
+              router.push({
+                pathname: '/sign_in',
+                query: {return_to: encodeURIComponent(router.pathname)}
+              })
             }
           }
         }

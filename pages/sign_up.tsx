@@ -1,8 +1,10 @@
 import { NextPage } from "next";
 import axios from "axios";
 import { useForm } from "hooks/useForm";
+import { useRouter } from "next/router";
 
 const SignUp: NextPage = () => {
+  const router = useRouter()
   const { form } = useForm({
     options: {
       initFormData: { username: "", password: "", passwordConfirmation: "" },
@@ -16,7 +18,9 @@ const SignUp: NextPage = () => {
         request: (formData) => axios.post(`/api/v1/users`, formData),
         success: () => {
           window.alert('注册成功')
-          window.location.href = '/sign_in'
+          router.push({
+            pathname: '/sign_in'
+          })
         }
       }
     },
