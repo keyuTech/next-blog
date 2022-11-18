@@ -1,47 +1,30 @@
-import type { NextPage } from 'next'
-import prisma from 'lib/prisma'
-import png from 'assets/images/1.jpg'
-import Image from 'next/image';
+// import type { NextPage } from 'next'
+// import prisma from 'lib/prisma'
 
-interface User {
-  id: number
-  username: string
-  password_digest: string
-}
+import PostsIndex, { getServerSideProps } from "./posts";
 
-interface Props {
-  user: User[]
-}
+// const Home: NextPage = (props) => {
+//   const {users} = props
+//   const handleClick = () => {
+//     console.log('onClick');
+//   }
+//   return (
+//     <div>
+// 
+//     </div>
+//   )
+// }
 
-const Home: NextPage<Props> = (props) => {
-  const {user} = props
-  const handleClick = () => {
-    console.log('onClick');
-  }
-  return (
-    <div>
-      <main>
-        <p className={"text-3xl"}>tailwind test</p>
-        <Image src={png} alt="image"/>
-        {user.map(u => <p className={"text-3xl"} key={u.id}>{u.username}</p>)}
-        <button onClick={handleClick}>aaa</button>
-      </main>
-    </div>
-  )
-}
+// export default Home
 
-export default Home
+// export const getServerSideProps = async () => {
+//   const users = await prisma.user.findMany()
+//   return {
+//     props: {
+//       users: JSON.parse(JSON.stringify(users))
+//     }
+//   }
+// }
+export default PostsIndex
 
-export const getServerSideProps = async () => {
-  const user = await prisma.user.findMany({
-    where: {
-      id: 1
-    }
-
-  })
-  return {
-    props: {
-      user: JSON.parse(JSON.stringify(user))
-    }
-  }
-}
+export {getServerSideProps}
