@@ -9,7 +9,10 @@ function md5(content: string) {
 }
 
 // 加密函数
-export const genPassword = (password: string) => {
+const genPassword = (password: string) => {
   const str = `password=${password}&key=${SECRET_KEY}`;
   return md5(str);
 };
+
+
+export default genPassword

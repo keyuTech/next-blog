@@ -1,6 +1,6 @@
 import { NextApiHandler } from "next";
 import prisma from "lib/prisma";
-import { genPassword } from "pages/utils/crypto";
+import genPassword from "pages/utils/crypto";
 import _ from 'lodash'
 import { User } from "@prisma/client";
 
