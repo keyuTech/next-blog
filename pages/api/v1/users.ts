@@ -4,22 +4,6 @@ import genPassword from "pages/utils/crypto";
 import _ from 'lodash'
 import { User } from "@prisma/client";
 
-/**
- * @swagger
- * /api/v1/users:
- *   post:
- *     summary: Create new user
- *     description: Returns the new user
- *     requestBody:
- *        content:
- *          application/json:
- *        parameters:
- *          - in: path
- *     responses:
- *       200:
- *         description: hello world
- */
-
 export type UserRes = Omit<User, 'password_digest'>
 
 interface UserErrors {
