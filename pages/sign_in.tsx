@@ -4,6 +4,7 @@ import { withSessionSsr } from "lib/withSession";
 import { UserRes } from "./api/v1/users";
 import { useForm } from "hooks/useForm";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 const SignIn: NextPage<{ user: UserRes }> = (props) => {
   const router = useRouter()
@@ -18,6 +19,7 @@ const SignIn: NextPage<{ user: UserRes }> = (props) => {
         <button key="signIn" type={"submit"}>
           登录
         </button>,
+        <Link key='signUp' href={'/sign_up'}>注册</Link>
       ],
       submit: {
         request: (formData) => axios.post(`/api/v1/session`, formData),

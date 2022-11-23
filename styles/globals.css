@@ -4,3 +4,7 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+.link-button {
+  @apply text-lg cursor-pointer
+}
