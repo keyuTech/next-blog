@@ -1,14 +1,28 @@
 /*@tailwind base;*/
 /*@tailwind components;*/
 /*@tailwind utilities;*/
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 .link-button {
-  @apply text-lg cursor-pointer
+  @apply text-lg cursor-pointer;
 }
 
 .post-title {
-  @apply text-2xl font-bold mb-4
+  @apply text-2xl font-bold mb-4;
+}
+
+.artical-summary {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  overflow: hidden;
+  /* autoprefixer: ignore next */
+  -webkit-box-orient: vertical;
+}
+
+.button {
+  @apply inline-block border border-stone-900 py-2 px-3 cursor-pointer
 }

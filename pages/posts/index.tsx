@@ -5,47 +5,52 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { withSessionSsr } from "lib/withSession";
 import { UserRes } from "pages/api/v1/users";
+import { marked } from "marked";
 
 interface Props {
   posts: Post[];
   total: number;
-  user: UserRes
+  user: UserRes;
 }
 
 const PostsIndex: NextPage<Props> = (props) => {
   const { posts, total, user } = props;
   const router = useRouter();
   const page = parseInt((router.query.page || "1").toString());
-  console.log('user');
-  console.log(user);
-  
 
   const handleCreateClick = () => {
     if (!user) {
       router.push({
         pathname: "/sign_in",
-        query: { return_to: encodeURIComponent('/posts/new') },
+        query: { return_to: encodeURIComponent("/posts/new") },
       });
     } else {
       router.push({
-        pathname: '/posts/new'
-      })
+        pathname: "/posts/new",
+      });
     }
-  }
+  };
 
   return (
     <div className={"container mx-auto p-16 h-full"}>
       <h1 className={"mb-8 flex justify-between items-center"}>
         <span className={"text-3xl font-bold"}>文章列表</span>
-        <span className={'border border-stone-900 py-2 px-3'} onClick={handleCreateClick}>新建文章</span>
+        <span
+          className={"button"}
+          onClick={handleCreateClick}
+        >
+          新建文章
+        </span>
       </h1>
 
       {posts.map((post) => (
         <Link key={`${post.id}-${post.author_id}`} href={`/posts/${post.id}`}>
-          <div className={"mb-4"}>
+          <a className={"block mb-4 cursor-pointer"}>
             <h3 className={"post-title"}>{post.title}</h3>
-            <article>{post.content.substring(0, 50)}</article>
-          </div>
+            <article className={'artical-summary'}
+              dangerouslySetInnerHTML={{ __html: marked.parse(post.content) }}
+            />
+          </a>
         </Link>
       ))}
       <footer className={"mt-16"}>
@@ -54,10 +59,17 @@ const PostsIndex: NextPage<Props> = (props) => {
         </div>
         {page > 1 && (
           <>
-            <Link href={`?page=${page - 1}`}>上一页</Link> |
+            <Link href={`?page=${page - 1}`}>
+              <a>上一页</a>
+            </Link>{" "}
+            |
           </>
         )}
-        {page * 2 < total && <Link href={`?page=${page + 1}`}>下一页</Link>}
+        {page * 2 < total && (
+          <Link href={`?page=${page + 1}`}>
+            <a>下一页</a>
+          </Link>
+        )}
       </footer>
     </div>
   );
@@ -65,18 +77,24 @@ const PostsIndex: NextPage<Props> = (props) => {
 
 export default PostsIndex;
 
-export const getServerSideProps: GetServerSideProps = withSessionSsr(async (context) => {
-  const page = parseInt(context.query.page?.toString() || "1") || 1;
-  const [posts, total] = await prisma.$transaction([
-    prisma.post.findMany({ skip: (page - 1) * 2, take: 2, orderBy: {created_at: 'desc'} }),
-    prisma.post.count(),
-  ]);
-  const user = context.req.session.user
-  return {
-    props: {
-      posts: JSON.parse(JSON.stringify(posts)),
-      total,
-      user: JSON.parse(JSON.stringify(user))
-    },
-  };
-})
+export const getServerSideProps: GetServerSideProps = withSessionSsr(
+  async (context) => {
+    const page = parseInt(context.query.page?.toString() || "1") || 1;
+    const [posts, total] = await prisma.$transaction([
+      prisma.post.findMany({
+        skip: (page - 1) * 10,
+        take: 10,
+        orderBy: { created_at: "desc" },
+      }),
+      prisma.post.count(),
+    ]);
+    const user = context.req.session.user;
+    return {
+      props: {
+        posts: JSON.parse(JSON.stringify(posts)),
+        total,
+        user: JSON.parse(JSON.stringify(user)),
+      },
+    };
+  }
+);

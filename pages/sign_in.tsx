@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 
 const SignIn: NextPage<{ user: UserRes }> = (props) => {
-  const router = useRouter()
+  const router = useRouter();
   const { form } = useForm({
     options: {
       initFormData: { username: "", password: "" },
@@ -16,19 +16,25 @@ const SignIn: NextPage<{ user: UserRes }> = (props) => {
         { label: "密码", type: "password", key: "password" },
       ],
       buttons: [
-        <button key="signIn" type={"submit"}>
+        <button key="signIn" type={"submit"} className={"button mr-8"}>
           登录
         </button>,
-        <Link key='signUp' href={'/sign_up'}>注册</Link>
+        <Link key="signUp" href={"/sign_up"}>
+          <a className={"button"}>注册</a>
+        </Link>,
       ],
       submit: {
         request: (formData) => axios.post(`/api/v1/session`, formData),
         success: () => {
           window.alert("登录成功");
-          const query = router.query
+          const query = router.query;
           if (query?.return_to) {
             router.push({
-              pathname: query.return_to.toString()
+              pathname: query.return_to.toString(),
+            });
+          } else {
+            router.push({
+              pathname: '/'
             })
           }
         },
@@ -37,10 +43,10 @@ const SignIn: NextPage<{ user: UserRes }> = (props) => {
   });
 
   return (
-    <>
+    <div className={"container p-16 mx-auto"}>
       <h1 className="text-3xl">登录</h1>
       {form}
-    </>
+    </div>
   );
 };
 

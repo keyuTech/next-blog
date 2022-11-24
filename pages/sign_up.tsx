@@ -4,7 +4,12 @@ import { useForm } from "hooks/useForm";
 import { useRouter } from "next/router";
 
 const SignUp: NextPage = () => {
-  const router = useRouter()
+  const router = useRouter();
+  const handleBackClick = () => {
+    router.push({
+      pathname: "/",
+    });
+  };
   const { form } = useForm({
     options: {
       initFormData: { username: "", password: "", passwordConfirmation: "" },
@@ -13,24 +18,31 @@ const SignUp: NextPage = () => {
         { label: "密码", type: "password", key: "password" },
         { label: "确认密码", type: "password", key: "passwordConfirmation" },
       ],
-      buttons: [<button key={'signUp'} type={"submit"}>注册</button>],
+      buttons: [
+        <button key={"signUp"} type={"submit"} className={"button mr-8"}>
+          注册
+        </button>,
+        <span key={"toHome"} onClick={handleBackClick} className={"button"}>
+          返回首页
+        </span>,
+      ],
       submit: {
         request: (formData) => axios.post(`/api/v1/users`, formData),
         success: () => {
-          window.alert('注册成功')
+          window.alert("注册成功");
           router.push({
-            pathname: '/sign_in'
-          })
-        }
-      }
+            pathname: "/sign_in",
+          });
+        },
+      },
     },
   });
 
   return (
-    <>
+    <div className={"container p-16 mx-auto"}>
       <h1 className="text-3xl">注册</h1>
       {form}
-    </>
+    </div>
   );
 };
 

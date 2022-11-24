@@ -74,15 +74,14 @@ export function useForm<T extends Record<string, string | number>>({
   const getInputElement = (field: Field<T>) => {
     if (field.type === 'textarea') {
       return <textarea
-      className={"bg-slate-100 align-top"}
+      className={"bg-slate-100 align-top w-full"}
       onChange={(e) => onChange(field.key, e)}
       value={formData[field.key]}
       rows={20}
-      cols={80}
     />
     } else {
       return <input
-      className={"bg-slate-100"}
+      className={"bg-slate-100 w-full"}
       type={field.type}
       value={formData[field.key]}
       onChange={(e) => onChange(field.key, e)}
@@ -94,8 +93,8 @@ export function useForm<T extends Record<string, string | number>>({
     <form onSubmit={onSubmit}>
       {fields.map((field) => (
         <div key={field.key.toString()} className={"mt-4"}>
-          <label>
-            <span className={'inline-block mr-4'}>{field.label}:</span>
+          <label className={'flex'}>
+            <span className={'inline-block mr-4 whitespace-nowrap text-xl'}>{field.label}:</span>
             {getInputElement(field)}
           </label>
           <p>{errors[field.key]?.[0]}</p>

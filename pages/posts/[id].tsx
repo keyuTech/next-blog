@@ -54,7 +54,7 @@ const PostDetail: NextPage = (props: PostProps) => {
     <div className={"container p-16 mx-auto"}>
       <div className={'flex justify-between'}>
         <Link href={'/posts'}>
-          <span className={'link-button hover:text-blue-500'}>返回列表</span>
+          <a className={'link-button hover:text-blue-500'}>返回列表</a>
         </Link>
         <div>
           <span className={'link-button mr-8 hover:text-blue-500'} onClick={handleEditClick}>编辑</span>

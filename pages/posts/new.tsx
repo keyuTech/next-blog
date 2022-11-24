@@ -35,7 +35,7 @@ const PostsNew: NextPage = (props) => {
     <div className={'container mx-auto p-16'}>
       <div className={'flex justify-between'}>
         <Link href={'/posts'}>
-          <span className={'link-button hover:text-blue-500'}>返回列表</span>
+          <a className={'link-button hover:text-blue-500'}>返回列表</a>
         </Link>
       </div>
       {form}

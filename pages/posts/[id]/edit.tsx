@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { UserRes } from "pages/api/v1/users";
 
 interface PostEditProps {
-  id?: string
+  id?: string;
   post: Post | null;
   user: UserRes;
 }
@@ -15,6 +15,11 @@ interface PostEditProps {
 const PostEdit: NextPage<PostEditProps> = (props: PostEditProps) => {
   const { id, post, user } = props;
   const router = useRouter();
+  const handleCancelClick = () => {
+    router.push({
+      pathname: `/posts/${id}`,
+    });
+  };
   const { form } = useForm({
     options: {
       initFormData: { title: post?.title || "", content: post?.content || "" },
@@ -24,19 +29,27 @@ const PostEdit: NextPage<PostEditProps> = (props: PostEditProps) => {
       ],
       buttons: [
         <button
-          className={"border border-stone-900 py-2 px-3"}
           key={"submit"}
+          className={"button mr-8"}
           type="submit"
         >
           修改
         </button>,
+        <span
+          key={"cancel"}
+          className={"button"}
+          onClick={handleCancelClick}
+        >
+          取消
+        </span>,
       ],
       submit: {
-        request: (formData) => axios.patch(`/api/v1/posts/${id}`, {...formData, id}),
+        request: (formData) =>
+          axios.patch(`/api/v1/posts/${id}`, { ...formData, id }),
         success: () => {
           window.alert("修改成功");
           router.push({
-            pathname: `/posts/${id}`
+            pathname: `/posts/${id}`,
           });
         },
       },
