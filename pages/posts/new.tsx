@@ -1,11 +1,12 @@
 import { NextPage } from "next";
 import { useForm } from "hooks/useForm";
 import axios from "axios";
-import Router from "next/router";
-import SimpleMDE from "react-simplemde-editor";
+import { useRouter } from "next/router";
 import "easymde/dist/easymde.min.css";
+import Link from "next/link";
 
 const PostsNew: NextPage = (props) => {
+  const router = useRouter()
   const { form } = useForm({
     options: {
       initFormData: { title: "", content: "" },
@@ -22,7 +23,7 @@ const PostsNew: NextPage = (props) => {
         request: (formData) => axios.post(`/api/v1/posts`, formData),
         success: () => {
           window.alert("提交成功");
-          Router.push({
+          router.push({
             pathname: '/posts',
             query: {page: 1}
           })
@@ -31,7 +32,12 @@ const PostsNew: NextPage = (props) => {
     },
   });
   return (
-    <div className={'container mx-auto my-16'}>
+    <div className={'container mx-auto p-16'}>
+      <div className={'flex justify-between'}>
+        <Link href={'/posts'}>
+          <span className={'link-button hover:text-blue-500'}>返回列表</span>
+        </Link>
+      </div>
       {form}
     </div>
   );
