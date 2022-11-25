@@ -9,12 +9,12 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <div className={"h-screen w-screen"}>
       <Head>
-        <title>Keyu's Website</title>
+        <title>{`Keyu's Website`}</title>
         <meta name="description" content="keyu's website" />
       </Head>
       <div>
         {header}
-        <div className={'mt-16'}>
+        <div className={"mt-16"}>
           <Component {...pageProps} />
         </div>
       </div>

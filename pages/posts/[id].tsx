@@ -11,54 +11,67 @@ import prisma from "../../lib/prisma";
 
 interface PostProps {
   post?: Post | null;
-  user?: UserRes
+  user?: UserRes;
 }
 
 const PostDetail: NextPage = (props: PostProps) => {
-  const router = useRouter()
+  const router = useRouter();
   const { post, user } = props;
   const html = marked.parse(post?.content || "");
 
   const handleDeleteClick = useCallback(() => {
-    if(user) {
-      axios.delete(`/api/v1/posts/${post?.id}`).then(() => {
-        window.alert('删除成功')
-        router.push({
-          pathname: '/posts'
-        })
-      }, () => {})
+    if (user) {
+      axios.delete(`/api/v1/posts/${post?.id}`).then(
+        () => {
+          window.alert("删除成功");
+          router.push({
+            pathname: "/posts",
+          });
+        },
+        () => {}
+      );
     } else {
       router.push({
-        pathname: '/sign_in'
-      })
+        pathname: "/sign_in",
+      });
     }
-  }, [post])
+  }, [post, user, router]);
 
   const handleEditClick = useCallback(() => {
     if (user) {
       if (user.id === post?.author_id) {
         router.push({
-          pathname: `/posts/${post?.id}/edit`
-        })
+          pathname: `/posts/${post?.id}/edit`,
+        });
       } else {
-        window.alert('无权修改他人文章')
+        window.alert("无权修改他人文章");
       }
     } else {
       router.push({
-        pathname: '/sign_in'
-      })
+        pathname: "/sign_in",
+      });
     }
-  }, [])
+  }, [post, user, router]);
 
   return (
     <div className={"container p-16 mx-auto"}>
-      <div className={'flex justify-between'}>
-        <Link href={'/posts'}>
-          <a className={'link-button hover:text-blue-500'}>返回列表</a>
+      <div className={"flex justify-between"}>
+        <Link href={"/posts"}>
+          <a className={"link-button hover:text-blue-500"}>返回列表</a>
         </Link>
         <div>
-          <span className={'link-button mr-8 hover:text-blue-500'} onClick={handleEditClick}>编辑</span>
-          <span className={'link-button hover:text-red-500'} onClick={handleDeleteClick}>删除</span>
+          <span
+            className={"link-button mr-8 hover:text-blue-500"}
+            onClick={handleEditClick}
+          >
+            编辑
+          </span>
+          <span
+            className={"link-button hover:text-red-500"}
+            onClick={handleDeleteClick}
+          >
+            删除
+          </span>
         </div>
       </div>
       <h2 className={"text-5xl font-bold py-8"}>{post?.title}</h2>
@@ -72,22 +85,20 @@ const PostDetail: NextPage = (props: PostProps) => {
 
 export default PostDetail;
 
-export const getServerSideProps: GetServerSideProps<
-  PostProps,
-  { id: string }
-> = withSessionSsr(async (context) => {
-  const post = context.params?.id
-    ? await prisma?.post.findUnique({
-        where: { id: parseInt(context.params.id.toString()) },
-      })
-    : null;
+export const getServerSideProps: GetServerSideProps<PostProps, { id: string }> =
+  withSessionSsr(async (context) => {
+    const post = context.params?.id
+      ? await prisma?.post.findUnique({
+          where: { id: parseInt(context.params.id.toString()) },
+        })
+      : null;
 
-  const user = context.req.session.user
+    const user = context.req.session.user;
 
-  return {
-    props: {
-      post: JSON.parse(JSON.stringify(post)),
-      user: JSON.parse(JSON.stringify(user))
-    },
-  };
-})
+    return {
+      props: {
+        post: JSON.parse(JSON.stringify(post)),
+        user: JSON.parse(JSON.stringify(user)),
+      },
+    };
+  });
