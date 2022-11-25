@@ -12,8 +12,8 @@ if [ "${exist}" == "true" ]
 then
     docker kill blog-app &&
     docker rm blog-app &&
-    docker run --name blog-app --network=host -p 3000:3000 -d keyu/blog-app &&
+    docker run --name blog-app --network=host -p 3000:3000 -d keyu/blog-app
 else
-    docker run --name blog-app --network=host -p 3000:3000 -d keyu/blog-app &&
+    docker run --name blog-app --network=host -p 3000:3000 -d keyu/blog-app
 fi
 echo 'OK'
