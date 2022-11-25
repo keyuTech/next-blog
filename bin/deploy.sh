@@ -1,3 +1,4 @@
+echo 'Start'
 docker start blog-data &&
 cd /home/blog/app/next-blog &&
 git fetch &&
