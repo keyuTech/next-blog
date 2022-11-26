@@ -6,10 +6,10 @@ function useHeader() {
   const header = (
     <div className={"flex justify-between items-center border-b-2 px-8 fixed top-0 right-0 left-0 z-50 bg-white"}>
       <Link href={"/"}>
-        <a className={'w-4 h-4 border border-red-400'}>
+        <a className={'w-16 h-16 border border-red-400'}>
           <Image
             className={"cursor-pointer"}
-            src={logo}
+            src={"../public/seele-logo.svg"}
             alt="website logo"
             width={64}
             height={64}
