@@ -93,7 +93,7 @@ export const getServerSideProps: GetServerSideProps<PostProps, { id: string }> =
         })
       : null;
 
-    const user = context.req.session.user;
+    const user = context.req.session.user || null;
 
     return {
       props: {

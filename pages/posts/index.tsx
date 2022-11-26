@@ -88,7 +88,7 @@ export const getServerSideProps: GetServerSideProps = withSessionSsr(
       }),
       prisma.post.count(),
     ]);
-    const user = context.req.session.user;
+    const user = context.req.session.user || null;
     return {
       props: {
         posts: JSON.parse(JSON.stringify(posts)),

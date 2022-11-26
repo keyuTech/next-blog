@@ -56,7 +56,7 @@ export const getServerSideProps: GetServerSideProps = withSessionSsr(
   async ({ req }) => {
     return {
       props: {
-        user: req.session.user || null,
+        user: JSON.parse(JSON.stringify(req.session.user || null)),
       },
     };
   }

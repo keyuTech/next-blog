@@ -68,7 +68,7 @@ export const getServerSideProps: GetServerSideProps<
   const post = id
     ? await prisma?.post.findUnique({ where: { id: parseInt(id) } })
     : null;
-  const user = context.req.session.user;
+  const user = context.req.session.user || null;
 
   return {
     props: {
