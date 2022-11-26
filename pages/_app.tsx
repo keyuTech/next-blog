@@ -11,6 +11,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <title>{`Keyu's Website`}</title>
         <meta name="description" content="keyu's website" />
+        <link rel="shortcut icon" href="/public/seele-logo.svg" />
       </Head>
       <div>
         {header}
