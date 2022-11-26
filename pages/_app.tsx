@@ -8,11 +8,13 @@ function MyApp({ Component, pageProps }: AppProps) {
   const { header } = useHeader();
   return (
     <div className={"h-screen w-screen overflow-hidden"}>
-      <div>
+      <Head>
+        <title>{`Keyu's Website`}</title>
+        <meta name="description" content="keyu's website" />
+      </Head>
+      <div className={'h-[calc(100%-4rem)] mt-16 overflow-y-auto'}>
         {header}
-        <div className={"mt-16"}>
-          <Component {...pageProps} />
-        </div>
+        <Component {...pageProps} />
       </div>
     </div>
   );

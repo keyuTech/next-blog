@@ -18,11 +18,9 @@ class MyDocument extends Document {
   render(): JSX.Element {
     return (
       <Html>
-        <Head>
-          <title>{`Keyu's Website`}</title>
-          <meta name="description" content="keyu's website" />
+        {/* <Head>
           <link rel="shortcut icon" href="../public/seele-logo.svg" />
-        </Head>
+        </Head> */}
         <body>
           <Main />
           <NextScript />
