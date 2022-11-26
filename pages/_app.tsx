@@ -7,7 +7,7 @@ import "github-markdown-css";
 function MyApp({ Component, pageProps }: AppProps) {
   const { header } = useHeader();
   return (
-    <div className={"h-screen w-screen"}>
+    <div className={"h-screen w-screen overflow-hidden"}>
       <Head>
         <title>{`Keyu's Website`}</title>
         <meta name="description" content="keyu's website" />
