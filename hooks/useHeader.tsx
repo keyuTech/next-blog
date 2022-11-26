@@ -9,7 +9,7 @@ function useHeader() {
         <a className={'w-16 h-16 border border-red-400'}>
           <Image
             className={"cursor-pointer"}
-            src={"../public/seele-logo.svg"}
+            src={logo}
             alt="website logo"
             width={64}
             height={64}
