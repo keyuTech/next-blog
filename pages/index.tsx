@@ -1,8 +1,10 @@
+import { Modal, Skeleton } from "@mui/material";
 import { Post } from "@prisma/client";
 import { marked } from "marked";
 import type { GetServerSideProps, NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useEffect, useRef, useState } from "react";
 import prisma from "../lib/prisma";
 
 interface HomeProps {
@@ -12,34 +14,48 @@ interface HomeProps {
 const Home: NextPage<HomeProps> = (props) => {
   const { posts } = props;
   const router = useRouter();
+  const [open, setOpen] = useState<boolean>(false);
+  const [selectedPost, setSelectedPost] = useState<Post | undefined>(undefined);
+
   const handlePostClick = (post: Post) => {
+    setOpen(true);
+    setSelectedPost(post);
+  };
+
+  const handleModalClose = () => {
+    setOpen(false);
+  };
+
+  const handleButtonClick = () => {
     router.push({
-      pathname: `/posts/${post.id}`,
+      pathname: `posts/${selectedPost?.id}`,
     });
+  };
+
+  const renderContent = (post: Post, type: "artical" | "summary") => {
+    return (
+      <>
+        <h4 className={"post-title"}>{post.title}</h4>
+        <article
+          className={`artical-${type}`}
+          dangerouslySetInnerHTML={{
+            __html: marked.parse(post.content),
+          }}
+        />
+      </>
+    );
   };
 
   const renderCard = (post: Post) => {
     return (
       <div
-        className={"card mb-8 cursor-pointer"}
+        className={
+          "card mb-8 cursor-pointer border border-stone-300 rounded-xl w-[calc(50%-1rem)] p-4 hover:shadow-lg"
+        }
         key={post.id}
         onClick={() => handlePostClick(post)}
       >
-        <img
-          src="https://images.pexels.com/photos/15286/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-          alt=""
-        />
-        <h4 className={"post-title"}>{post.title}</h4>
-        <div className={"content-wrapper"}>
-          <div className={"content"}>
-            <article
-              className={"artical-summary"}
-              dangerouslySetInnerHTML={{
-                __html: marked.parse(post.content),
-              }}
-            />
-          </div>
-        </div>
+        {renderContent(post, "summary")}
       </div>
     );
   };
@@ -48,11 +64,33 @@ const Home: NextPage<HomeProps> = (props) => {
     <div className={"home h-full w-full"}>
       <div className={"container mx-auto p-16"}>
         <Link href={"/posts"}>
-          <a className={"text-3xl font-bold mb-8 inline-block"}>文章列表</a>
+          <a className={"text-3xl font-bold mb-8 inline-block"}>
+            {"全部文章 ->"}
+          </a>
         </Link>
-
-        {posts.map((post) => renderCard(post))}
+        <div className={"flex flex-wrap justify-between"}>
+          {posts.map((post) => renderCard(post))}
+        </div>
       </div>
+      <Modal open={open} onClose={handleModalClose}>
+        {selectedPost ? (
+          <div className={"bg-white p-16 m-16 h-[calc(100%-8rem)]"}>
+            <div className={"overflow-y-auto h-full"}>
+              <div>
+                <span
+                  className={"button hover:text-blue-500 hover:border-blue-500 mb-4"}
+                  onClick={handleButtonClick}
+                >
+                  前往文章
+                </span>
+              </div>
+              {renderContent(selectedPost, "artical")}
+            </div>
+          </div>
+        ) : (
+          <></>
+        )}
+      </Modal>
     </div>
   );
 };
