@@ -17,20 +17,21 @@ const Home: NextPage<HomeProps> = (props) => {
       pathname: `/posts/${post.id}`,
     });
   };
-  return (
-    <div className={"home h-full w-full"}>
-      <div className={"container mx-auto p-16"}>
-        <Link href={"/posts"}>
-          <a className={"text-3xl font-bold mb-8 inline-block"}>文章列表</a>
-        </Link>
 
-        {posts.map((post) => (
-          <div
-            key={post.id}
-            className={"mb-8 cursor-pointer"}
-            onClick={() => handlePostClick(post)}
-          >
-            <p className={"post-title"}>{post.title}</p>
+  const renderCard = (post: Post) => {
+    return (
+      <div
+        className={"card mb-8 cursor-pointer"}
+        key={post.id}
+        onClick={() => handlePostClick(post)}
+      >
+        <img
+          src="https://images.pexels.com/photos/15286/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+          alt=""
+        />
+        <h4 className={"post-title"}>{post.title}</h4>
+        <div className={"content-wrapper"}>
+          <div className={"content"}>
             <article
               className={"artical-summary"}
               dangerouslySetInnerHTML={{
@@ -38,7 +39,19 @@ const Home: NextPage<HomeProps> = (props) => {
               }}
             />
           </div>
-        ))}
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <div className={"home h-full w-full"}>
+      <div className={"container mx-auto p-16"}>
+        <Link href={"/posts"}>
+          <a className={"text-3xl font-bold mb-8 inline-block"}>文章列表</a>
+        </Link>
+
+        {posts.map((post) => renderCard(post))}
       </div>
     </div>
   );

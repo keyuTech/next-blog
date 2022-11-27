@@ -1,13 +1,14 @@
 import { Alert, Snackbar } from "@mui/material";
 import { Post } from "@prisma/client";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { withSessionSsr } from "lib/withSession";
 import { marked } from "marked";
 import { GetServerSideProps, NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { UserRes } from "pages/api/v1/users";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { SnackbarMessage } from "types";
 import prisma from "../../lib/prisma";
 
 interface PostProps {
@@ -19,19 +20,44 @@ const PostDetail: NextPage = (props: PostProps) => {
   const router = useRouter();
   const { post, user } = props;
   const html = marked.parse(post?.content || "");
-  const [success, setSuccess] = useState<boolean>(false)
+  const [snackPack, setSnackPack] = useState<readonly SnackbarMessage[]>([]);
+  const [open, setOpen] = useState(false);
+  const [messageInfo, setMessageInfo] = useState<SnackbarMessage | undefined>(
+    undefined
+  );
+
+  useEffect(() => {
+    if (snackPack.length && !messageInfo) {
+      setMessageInfo({ ...snackPack[0] });
+      setSnackPack((prev) => prev.slice(1));
+      setOpen(true);
+    } else if (snackPack.length && messageInfo && open) {
+      setOpen(false);
+    }
+  }, [snackPack, messageInfo, open]);
 
   const handleDeleteClick = useCallback(() => {
     if (user) {
       axios.delete(`/api/v1/posts/${post?.id}`).then(
         () => {
-          setSuccess(true)
+          setSnackPack((prev) => [
+            ...prev,
+            { message: "删除成功", key: new Date().getTime() },
+          ]);
           router.push({
             pathname: "/posts",
           });
         },
         (error) => {
-
+          const response: AxiosResponse = error.response;
+          if (response) {
+            if (response.status === 401) {
+              setSnackPack((prev) => [
+                ...prev,
+                { message: "无权删除他人文章", key: new Date().getTime() },
+              ]);
+            }
+          }
         }
       );
     } else {
@@ -48,7 +74,10 @@ const PostDetail: NextPage = (props: PostProps) => {
           pathname: `/posts/${post?.id}/edit`,
         });
       } else {
-        <Alert severity="error">无权修改他人文章</Alert>;
+        setSnackPack((prev) => [
+          ...prev,
+          { message: "无权修改他人文章", key: new Date().getTime() },
+        ]);
       }
     } else {
       router.push({
@@ -57,13 +86,25 @@ const PostDetail: NextPage = (props: PostProps) => {
     }
   }, [post, user, router]);
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleExited = () => {
+    setMessageInfo(undefined);
+  };
+
   return (
     <div className={"container p-16 mx-auto"}>
-      <Snackbar open={success} autoHideDuration={2000} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
-        <Alert severity="success" sx={{ width: '100%' }}>
-          删除成功
-        </Alert>
-      </Snackbar>
+      <Snackbar
+        key={messageInfo ? messageInfo.key : undefined}
+        open={open}
+        autoHideDuration={3000}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        onClose={handleClose}
+        TransitionProps={{ onExited: handleExited }}
+        message={messageInfo ? messageInfo.message : undefined}
+      />
       <div className={"flex justify-between"}>
         <Link href={"/posts"}>
           <a className={"link-button hover:text-blue-500"}>返回列表</a>

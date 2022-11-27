@@ -2,10 +2,33 @@ import { NextPage } from "next";
 import axios from "axios";
 import { useForm } from "hooks/useForm";
 import { useRouter } from "next/router";
-import { Alert } from "@mui/material";
+import { Alert, Snackbar } from "@mui/material";
+import { useEffect, useState } from "react";
+import { SnackbarMessage } from "types";
 
 const SignUp: NextPage = () => {
   const router = useRouter();
+  const [snackPack, setSnackPack] = useState<readonly SnackbarMessage[]>([]);
+  const [open, setOpen] = useState(false);
+  const [messageInfo, setMessageInfo] = useState<SnackbarMessage | undefined>(
+    undefined
+  );
+  useEffect(() => {
+    if (snackPack.length && !messageInfo) {
+      setMessageInfo({ ...snackPack[0] });
+      setSnackPack((prev) => prev.slice(1));
+      setOpen(true);
+    } else if (snackPack.length && messageInfo && open) {
+      setOpen(false);
+    }
+  }, [snackPack, messageInfo, open]);
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleExited = () => {
+    setMessageInfo(undefined);
+  };
   const handleBackClick = () => {
     router.push({
       pathname: "/",
@@ -30,10 +53,15 @@ const SignUp: NextPage = () => {
       submit: {
         request: (formData) => axios.post(`/api/v1/users`, formData),
         success: () => {
-          <Alert severity="success">注册成功</Alert>;
-          router.push({
-            pathname: "/sign_in",
-          });
+          setSnackPack((prev) => [
+            ...prev,
+            { message: "注册成功", key: new Date().getTime() },
+          ]);
+          setTimeout(() => {
+            router.push({
+              pathname: "/sign_in",
+            });
+          }, 3000);
         },
       },
     },
@@ -41,6 +69,15 @@ const SignUp: NextPage = () => {
 
   return (
     <div className={"container p-16 mx-auto"}>
+      <Snackbar
+        key={messageInfo ? messageInfo.key : undefined}
+        open={open}
+        autoHideDuration={3000}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        onClose={handleClose}
+        TransitionProps={{ onExited: handleExited }}
+        message={messageInfo ? messageInfo.message : undefined}
+      />
       <h1 className="text-3xl">注册</h1>
       {form}
     </div>
