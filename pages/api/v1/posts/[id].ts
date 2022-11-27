@@ -12,7 +12,7 @@ const PostDelete: NextApiHandler = withSessionApi(async (req, res) => {
     });
     res.setHeader("Content-Type", "application/json;charset=utf-8");
     res.statusCode = 200;
-    res.write(JSON.stringify(result));
+    res.write(JSON.stringify(result || null));
     res.end();
   } else if (req.method === "DELETE" && queryId) {
     const post = await prisma.post.findUnique({

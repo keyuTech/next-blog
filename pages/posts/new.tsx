@@ -4,6 +4,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import "easymde/dist/easymde.min.css";
 import Link from "next/link";
+import { Alert } from "@mui/material";
 
 const PostsNew: NextPage = (props) => {
   const router = useRouter()
@@ -22,7 +23,7 @@ const PostsNew: NextPage = (props) => {
       submit: {
         request: (formData) => axios.post(`/api/v1/posts`, formData),
         success: () => {
-          window.alert("提交成功");
+          <Alert severity="success">提交成功</Alert>
           router.push({
             pathname: '/posts',
             query: {page: 1}

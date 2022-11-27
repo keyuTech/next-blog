@@ -2,6 +2,7 @@ import { NextPage } from "next";
 import axios from "axios";
 import { useForm } from "hooks/useForm";
 import { useRouter } from "next/router";
+import { Alert } from "@mui/material";
 
 const SignUp: NextPage = () => {
   const router = useRouter();
@@ -29,7 +30,7 @@ const SignUp: NextPage = () => {
       submit: {
         request: (formData) => axios.post(`/api/v1/users`, formData),
         success: () => {
-          window.alert("注册成功");
+          <Alert severity="success">注册成功</Alert>;
           router.push({
             pathname: "/sign_in",
           });

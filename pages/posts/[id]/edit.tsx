@@ -1,3 +1,4 @@
+import { Alert } from "@mui/material";
 import { Post } from "@prisma/client";
 import axios from "axios";
 import { useForm } from "hooks/useForm";
@@ -47,7 +48,7 @@ const PostEdit: NextPage<PostEditProps> = (props: PostEditProps) => {
         request: (formData) =>
           axios.patch(`/api/v1/posts/${id}`, { ...formData, id }),
         success: () => {
-          window.alert("修改成功");
+          <Alert severity="success">修改成功</Alert>
           router.push({
             pathname: `/posts/${id}`,
           });
@@ -64,7 +65,7 @@ export const getServerSideProps: GetServerSideProps<
   PostEditProps,
   { id: string }
 > = withSessionSsr(async (context) => {
-  const id = context.params?.id?.toString();
+  const id = context.params?.id?.toString() || null;
   const post = id
     ? await prisma?.post.findUnique({ where: { id: parseInt(id) } })
     : null;
@@ -72,7 +73,7 @@ export const getServerSideProps: GetServerSideProps<
 
   return {
     props: {
-      id,
+      id: JSON.parse(JSON.stringify(id)),
       post: JSON.parse(JSON.stringify(post)),
       user: JSON.parse(JSON.stringify(user)),
     },

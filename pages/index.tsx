@@ -2,6 +2,7 @@ import { Post } from "@prisma/client";
 import { marked } from "marked";
 import type { GetServerSideProps, NextPage } from "next";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import prisma from "../lib/prisma";
 
 interface HomeProps {
@@ -10,6 +11,12 @@ interface HomeProps {
 
 const Home: NextPage<HomeProps> = (props) => {
   const { posts } = props;
+  const router = useRouter();
+  const handlePostClick = (post: Post) => {
+    router.push({
+      pathname: `/posts/${post.id}`,
+    });
+  };
   return (
     <div className={"home h-full w-full"}>
       <div className={"container mx-auto p-16"}>
@@ -18,18 +25,18 @@ const Home: NextPage<HomeProps> = (props) => {
         </Link>
 
         {posts.map((post) => (
-          <div key={post.id} className={"mb-8"}>
-            <Link href={`/posts/${post.id}`}>
-              <a className={"block cursor-pointer"}>
-                <p className={"post-title"}>{post.title}</p>
-                <article
-                  className={"artical-summary"}
-                  dangerouslySetInnerHTML={{
-                    __html: marked.parse(post.content),
-                  }}
-                />
-              </a>
-            </Link>
+          <div
+            key={post.id}
+            className={"mb-8 cursor-pointer"}
+            onClick={() => handlePostClick(post)}
+          >
+            <p className={"post-title"}>{post.title}</p>
+            <article
+              className={"artical-summary"}
+              dangerouslySetInnerHTML={{
+                __html: marked.parse(post.content),
+              }}
+            />
           </div>
         ))}
       </div>
@@ -46,7 +53,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   });
   return {
     props: {
-      posts: JSON.parse(JSON.stringify(posts)),
+      posts: JSON.parse(JSON.stringify(posts || null)),
     },
   };
 };

@@ -5,6 +5,7 @@ import { UserRes } from "./api/v1/users";
 import { useForm } from "hooks/useForm";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import Alert from "@mui/material/Alert";
 
 const SignIn: NextPage<{ user: UserRes }> = (props) => {
   const router = useRouter();
@@ -26,7 +27,7 @@ const SignIn: NextPage<{ user: UserRes }> = (props) => {
       submit: {
         request: (formData) => axios.post(`/api/v1/session`, formData),
         success: () => {
-          window.alert("登录成功");
+          <Alert severity="success">登录成功</Alert>;
           const query = router.query;
           if (query?.return_to) {
             router.push({

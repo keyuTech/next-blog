@@ -16,7 +16,7 @@ const Session: NextApiHandler = async (req, res) => {
       req.session.user = result
       await req.session.save()
       res.statusCode = 200
-      res.write(JSON.stringify(result))
+      res.write(JSON.stringify(result || null))
     } else {
       res.statusCode = 422
       res.write(JSON.stringify({password: ['密码不匹配']}))

@@ -12,7 +12,7 @@ const Posts: NextApiHandler = withSessionApi(async (req, res) => {
       data: { title, content, author_id: user.id },
     });
     res.statusCode = 200;
-    res.write(JSON.stringify(result));
+    res.write(JSON.stringify(result || null));
   } else {
     res.statusCode = 401;
   }

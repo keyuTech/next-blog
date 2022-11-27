@@ -7,6 +7,8 @@ import Document, {
   NextScript,
 } from "next/document";
 
+import logo from '../public/favicon.ico'
+
 class MyDocument extends Document {
   static async getInitialProps(
     ctx: DocumentContext
@@ -19,7 +21,7 @@ class MyDocument extends Document {
     return (
       <Html>
         {/* <Head>
-          <link rel="shortcut icon" href="../public/seele-logo.svg" />
+          <link rel="shortcut icon" href={logo.src} />
         </Head> */}
         <body>
           <Main />

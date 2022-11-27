@@ -48,7 +48,7 @@ const Users: NextApiHandler = async (req, res) => {
       password_digest: genPassword(password),
     });
     res.statusCode = 200;
-    res.write(JSON.stringify(_.omit(result, ['password_digest'])));
+    res.write(JSON.stringify(_.omit(result, ['password_digest']) || null));
   }
   res.end();
 };

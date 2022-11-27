@@ -1,3 +1,4 @@
+import { Alert, Snackbar } from "@mui/material";
 import { Post } from "@prisma/client";
 import axios from "axios";
 import { withSessionSsr } from "lib/withSession";
@@ -6,7 +7,7 @@ import { GetServerSideProps, NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { UserRes } from "pages/api/v1/users";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import prisma from "../../lib/prisma";
 
 interface PostProps {
@@ -18,17 +19,20 @@ const PostDetail: NextPage = (props: PostProps) => {
   const router = useRouter();
   const { post, user } = props;
   const html = marked.parse(post?.content || "");
+  const [success, setSuccess] = useState<boolean>(false)
 
   const handleDeleteClick = useCallback(() => {
     if (user) {
       axios.delete(`/api/v1/posts/${post?.id}`).then(
         () => {
-          window.alert("删除成功");
+          setSuccess(true)
           router.push({
             pathname: "/posts",
           });
         },
-        () => {}
+        (error) => {
+
+        }
       );
     } else {
       router.push({
@@ -44,7 +48,7 @@ const PostDetail: NextPage = (props: PostProps) => {
           pathname: `/posts/${post?.id}/edit`,
         });
       } else {
-        window.alert("无权修改他人文章");
+        <Alert severity="error">无权修改他人文章</Alert>;
       }
     } else {
       router.push({
@@ -55,6 +59,11 @@ const PostDetail: NextPage = (props: PostProps) => {
 
   return (
     <div className={"container p-16 mx-auto"}>
+      <Snackbar open={success} autoHideDuration={2000} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+        <Alert severity="success" sx={{ width: '100%' }}>
+          删除成功
+        </Alert>
+      </Snackbar>
       <div className={"flex justify-between"}>
         <Link href={"/posts"}>
           <a className={"link-button hover:text-blue-500"}>返回列表</a>
