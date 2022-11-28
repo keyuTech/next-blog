@@ -1,10 +1,10 @@
-import { Modal, Skeleton } from "@mui/material";
+import { Modal } from "@mui/material";
 import { Post } from "@prisma/client";
 import { marked } from "marked";
 import type { GetServerSideProps, NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import prisma from "../lib/prisma";
 
 interface HomeProps {
@@ -76,12 +76,21 @@ const Home: NextPage<HomeProps> = (props) => {
         {selectedPost ? (
           <div className={"bg-white p-16 m-16 h-[calc(100%-8rem)]"}>
             <div className={"overflow-y-auto h-full"}>
-              <div>
+              <div className={"flex justify-between"}>
                 <span
-                  className={"button hover:text-blue-500 hover:border-blue-500 mb-4"}
+                  className={
+                    "button hover:text-blue-500 hover:border-blue-500 mb-4"
+                  }
                   onClick={handleButtonClick}
                 >
                   前往文章
+                </span>
+
+                <span
+                  className={"text-4xl cursor-pointer"}
+                  onClick={handleModalClose}
+                >
+                  X
                 </span>
               </div>
               {renderContent(selectedPost, "artical")}

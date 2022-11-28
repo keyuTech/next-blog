@@ -42,7 +42,7 @@ const PostsIndex: NextPage<Props> = (props) => {
       <h1 className={"mb-8 flex justify-between items-center"}>
         <span className={"text-3xl font-bold"}>文章列表</span>
         <span className={"button"} onClick={handleCreateClick}>
-          新建文章
+          写文章
         </span>
       </h1>
 
