@@ -1,4 +1,4 @@
-import { Alert, Snackbar } from "@mui/material";
+import { Snackbar } from "@mui/material";
 import { Post } from "@prisma/client";
 import axios from "axios";
 import { useForm } from "hooks/useForm";
@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { UserRes } from "pages/api/v1/users";
 import { useEffect, useState } from "react";
 import { SnackbarMessage } from "types";
+import prisma from "../../../lib/prisma";
 
 interface PostEditProps {
   id?: string;
