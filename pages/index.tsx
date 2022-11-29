@@ -62,7 +62,7 @@ const Home: NextPage<HomeProps> = (props) => {
 
   return (
     <div className={"home h-full w-full"}>
-      <div className={"container mx-auto p-4 md:p-16"}>
+      <div className={"container mx-auto p-4 md:py-12 md:max-w-7xl"}>
         <Link href={"/posts"}>
           <a className={"text-3xl font-bold mb-8 inline-block"}>
             {"全部文章 ->"}
