@@ -75,7 +75,7 @@ const Home: NextPage<HomeProps> = (props) => {
       <Modal open={open} onClose={handleModalClose}>
         {selectedPost ? (
           <div className={"bg-white h-full py-12 px-4 md:p-16 md:m-16 md:h-[calc(100%-8rem)]"}>
-            <div className={"overflow-y-auto overflow-x-hidden break-words h-full w-full py-4"}>
+            <div className={"overflow-y-auto overflow-x-hidden break-words h-full w-full p-4"}>
               <div className={"flex justify-between"}>
                 <span
                   className={
