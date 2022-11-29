@@ -50,7 +50,7 @@ const Home: NextPage<HomeProps> = (props) => {
     return (
       <div
         className={
-          "card mb-8 cursor-pointer border border-stone-300 rounded-xl w-[calc(50%-1rem)] p-4 hover:shadow-lg"
+          "card mb-8 cursor-pointer border border-stone-300 rounded-xl w-full md:w-[calc(50%-1rem)] p-4 hover:shadow-lg"
         }
         key={post.id}
         onClick={() => handlePostClick(post)}
@@ -62,7 +62,7 @@ const Home: NextPage<HomeProps> = (props) => {
 
   return (
     <div className={"home h-full w-full"}>
-      <div className={"container mx-auto p-16"}>
+      <div className={"container mx-auto p-4 md:p-16"}>
         <Link href={"/posts"}>
           <a className={"text-3xl font-bold mb-8 inline-block"}>
             {"全部文章 ->"}
@@ -74,8 +74,8 @@ const Home: NextPage<HomeProps> = (props) => {
       </div>
       <Modal open={open} onClose={handleModalClose}>
         {selectedPost ? (
-          <div className={"bg-white p-16 m-16 h-[calc(100%-8rem)]"}>
-            <div className={"overflow-y-auto h-full"}>
+          <div className={"bg-white h-full py-12 px-4 md:p-16 md:m-16 md:h-[calc(100%-8rem)]"}>
+            <div className={"overflow-y-auto overflow-x-hidden break-words h-full w-full py-4"}>
               <div className={"flex justify-between"}>
                 <span
                   className={

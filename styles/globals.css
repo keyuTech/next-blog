@@ -19,7 +19,6 @@
   display: -webkit-box;
   -webkit-line-clamp: 5;
   overflow: hidden;
-  /* autoprefixer: ignore next */
   -webkit-box-orient: vertical;
 }
 

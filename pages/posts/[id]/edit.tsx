@@ -78,7 +78,7 @@ const PostEdit: NextPage<PostEditProps> = (props: PostEditProps) => {
     },
   });
   return (
-    <div className={"container mx-auto p-16"}>
+    <div className={"container mx-auto p-4 md:p-16"}>
       <Snackbar
         key={messageInfo ? messageInfo.key : undefined}
         open={open}

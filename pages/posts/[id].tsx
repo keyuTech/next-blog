@@ -95,7 +95,7 @@ const PostDetail: NextPage = (props: PostProps) => {
   };
 
   return (
-    <div className={"container p-16 mx-auto"}>
+    <div className={"container p-4 md:p-16 mx-auto"}>
       <Snackbar
         key={messageInfo ? messageInfo.key : undefined}
         open={open}
