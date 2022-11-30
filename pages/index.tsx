@@ -37,7 +37,7 @@ const Home: NextPage<HomeProps> = (props) => {
       <>
         <h4 className={"post-title"}>{post.title}</h4>
         <article
-          className={`artical-${type}`}
+          className={`artical-${type} line-clamp-4`}
           dangerouslySetInnerHTML={{
             __html: marked.parse(post.content),
           }}

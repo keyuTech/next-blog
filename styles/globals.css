@@ -13,14 +13,13 @@
   @apply text-2xl font-bold mb-4;
 }
 
-.artical-summary {
+/* .artical-summary {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 4;
-  overflow: hidden;
   -webkit-box-orient: vertical;
-}
+} */
 
 .button {
   @apply inline-block border border-stone-900 py-2 px-3 cursor-pointer;

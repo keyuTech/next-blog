@@ -54,7 +54,7 @@ const PostsIndex: NextPage<Props> = (props) => {
         >
           <h3 className={"post-title"}>{post.title}</h3>
           <article
-            className={"artical-summary"}
+            className={"artical-summary line-clamp-4"}
             dangerouslySetInnerHTML={{ __html: marked.parse(post.content) }}
           />
         </div>
