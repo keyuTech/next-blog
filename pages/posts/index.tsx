@@ -49,8 +49,11 @@ const PostsIndex: NextPage<Props> = (props) => {
       {posts.map((post) => (
         <div
           key={`${post.id}-${post.author_id}`}
-          onClick={() => handlePostClick(post)}
-          className={'mb-8'}
+          onClick={(e) => {
+            e.stopPropagation();
+            handlePostClick(post)
+          }}
+          className={"mb-8 cursor-pointer"}
         >
           <h3 className={"post-title"}>{post.title}</h3>
           <article
