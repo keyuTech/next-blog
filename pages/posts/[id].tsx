@@ -3,6 +3,7 @@ import { Post } from "@prisma/client";
 import axios, { AxiosResponse } from "axios";
 import { withSessionSsr } from "lib/withSession";
 import { marked } from "marked";
+import moment from "moment";
 import { GetServerSideProps, NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -124,7 +125,12 @@ const PostDetail: NextPage = (props: PostProps) => {
           </span>
         </div>
       </div>
-      <h2 className={"text-5xl font-bold py-8"}>{post?.title}</h2>
+      <h2 className={"text-5xl font-bold py-8"}>
+        {post?.title}
+        <span className={'text-2xl font-normal ml-16 opacity-40'}>
+          {moment(new Date(post?.created_at || "")).format("YYYY-MM-DD")}
+        </span>
+      </h2>
       <article
         className={"markdown-body"}
         dangerouslySetInnerHTML={{ __html: html }}

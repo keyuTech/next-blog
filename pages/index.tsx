@@ -1,6 +1,7 @@
 import { Modal } from "@mui/material";
 import { Post } from "@prisma/client";
 import { marked } from "marked";
+import moment from "moment";
 import type { GetServerSideProps, NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -36,8 +37,9 @@ const Home: NextPage<HomeProps> = (props) => {
     return (
       <>
         <h4 className={"post-title"}>{post.title}</h4>
+        <p className={'mb-4 opacity-40'}>{moment(new Date(post.created_at)).format('YYYY-MM-DD')}</p>
         <article
-          className={`artical-${type} line-clamp-4`}
+          className={`artical-${type} ${type === 'summary' ? 'line-clamp-4': ''}`}
           dangerouslySetInnerHTML={{
             __html: marked.parse(post.content),
           }}
@@ -117,3 +119,4 @@ export const getServerSideProps: GetServerSideProps = async () => {
     },
   };
 };
+

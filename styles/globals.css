@@ -10,7 +10,7 @@
 }
 
 .post-title {
-  @apply text-2xl font-bold mb-4;
+  @apply text-2xl font-bold mb-2;
 }
 
 /* .artical-summary {
