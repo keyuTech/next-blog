@@ -24,3 +24,7 @@
 .button {
   @apply inline-block border border-stone-900 py-2 px-3 cursor-pointer;
 }
+
+ul:not(.browser-default) li {
+  list-style-type: disc;
+}
