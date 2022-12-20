@@ -1,3 +1,13 @@
+Next-Blog是基于Next.js SSR构建的Blog系统，包含登录/注册/创建文章/修改文章/删除文章等功能
+
+主要技术：
+* Backend：
+  * Prisma
+  * PostgreSQL
+* Frontend：
+  * React.js
+  * TailwindCSS
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Start DataBase
