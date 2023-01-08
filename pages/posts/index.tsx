@@ -51,7 +51,7 @@ const PostsIndex: NextPage<Props> = (props) => {
           key={`${post.id}-${post.author_id}`}
           onClick={(e) => {
             e.stopPropagation();
-            handlePostClick(post)
+            handlePostClick(post);
           }}
           className={"mb-8 cursor-pointer"}
         >
@@ -62,21 +62,18 @@ const PostsIndex: NextPage<Props> = (props) => {
           />
         </div>
       ))}
-      <footer className={"mt-16"}>
-        <div>
-          共{total}项, 当前第{page}页
+      <footer className={"py-16"}>
+        <div className={"mb-4"}>
+          共{total}项, 共{Math.ceil(total / 10)}页, 当前第{page}页
         </div>
         {page > 1 && (
-          <>
-            <Link href={`?page=${page - 1}`}>
-              <a>上一页</a>
-            </Link>{" "}
-            |
-          </>
+          <Link href={`?page=${page - 1}`}>
+            <a className={"button mr-8"}>上一页</a>
+          </Link>
         )}
-        {page * 2 < total && (
+        {page * 10 <= total && (
           <Link href={`?page=${page + 1}`}>
-            <a>下一页</a>
+            <a className={"button"}>下一页</a>
           </Link>
         )}
       </footer>
