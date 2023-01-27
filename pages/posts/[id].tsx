@@ -1,16 +1,16 @@
-import { Alert, Snackbar } from "@mui/material";
-import { Post } from "@prisma/client";
-import axios, { AxiosResponse } from "axios";
-import { withSessionSsr } from "lib/withSession";
-import { marked } from "marked";
-import moment from "moment";
-import { GetServerSideProps, NextPage } from "next";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { UserRes } from "pages/api/v1/users";
-import { useCallback, useEffect, useState } from "react";
-import { SnackbarMessage } from "types";
-import prisma from "../../lib/prisma";
+import { Snackbar } from '@mui/material';
+import { Post } from '@prisma/client';
+import axios, { AxiosResponse } from 'axios';
+import { withSessionSsr } from 'lib/withSession';
+import { marked } from 'marked';
+import moment from 'moment';
+import { GetServerSideProps, NextPage } from 'next';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { UserRes } from 'pages/api/v1/users';
+import { useCallback, useEffect, useState } from 'react';
+import { SnackbarMessage } from 'types';
+import prisma from '../../lib/prisma';
 
 interface PostProps {
   post?: Post | null;
@@ -19,8 +19,8 @@ interface PostProps {
 
 const PostDetail: NextPage = (props: PostProps) => {
   const router = useRouter();
-  const { post, user } = props;
-  const html = marked.parse(post?.content || "");
+  const {post, user} = props;
+  const html = marked.parse(post?.content || '');
   const [snackPack, setSnackPack] = useState<readonly SnackbarMessage[]>([]);
   const [open, setOpen] = useState(false);
   const [messageInfo, setMessageInfo] = useState<SnackbarMessage | undefined>(
@@ -29,7 +29,7 @@ const PostDetail: NextPage = (props: PostProps) => {
 
   useEffect(() => {
     if (snackPack.length && !messageInfo) {
-      setMessageInfo({ ...snackPack[0] });
+      setMessageInfo({...snackPack[0]});
       setSnackPack((prev) => prev.slice(1));
       setOpen(true);
     } else if (snackPack.length && messageInfo && open) {
@@ -43,10 +43,10 @@ const PostDetail: NextPage = (props: PostProps) => {
         () => {
           setSnackPack((prev) => [
             ...prev,
-            { message: "删除成功", key: new Date().getTime() },
+            {message: '删除成功', key: new Date().getTime()},
           ]);
           router.push({
-            pathname: "/posts",
+            pathname: '/posts',
           });
         },
         (error) => {
@@ -55,7 +55,7 @@ const PostDetail: NextPage = (props: PostProps) => {
             if (response.status === 401) {
               setSnackPack((prev) => [
                 ...prev,
-                { message: "无权删除他人文章", key: new Date().getTime() },
+                {message: '无权删除他人文章', key: new Date().getTime()},
               ]);
             }
           }
@@ -63,7 +63,7 @@ const PostDetail: NextPage = (props: PostProps) => {
       );
     } else {
       router.push({
-        pathname: "/sign_in",
+        pathname: '/sign_in',
       });
     }
   }, [post, user, router]);
@@ -77,12 +77,12 @@ const PostDetail: NextPage = (props: PostProps) => {
       } else {
         setSnackPack((prev) => [
           ...prev,
-          { message: "无权修改他人文章", key: new Date().getTime() },
+          {message: '无权修改他人文章', key: new Date().getTime()},
         ]);
       }
     } else {
       router.push({
-        pathname: "/sign_in",
+        pathname: '/sign_in',
       });
     }
   }, [post, user, router]);
@@ -96,44 +96,46 @@ const PostDetail: NextPage = (props: PostProps) => {
   };
 
   return (
-    <div className={"container p-4 md:p-16 mx-auto"}>
+    <div className={'container p-4 md:p-16 mx-auto'}>
       <Snackbar
         key={messageInfo ? messageInfo.key : undefined}
         open={open}
         autoHideDuration={3000}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        anchorOrigin={{vertical: 'top', horizontal: 'center'}}
         onClose={handleClose}
-        TransitionProps={{ onExited: handleExited }}
+        TransitionProps={{onExited: handleExited}}
         message={messageInfo ? messageInfo.message : undefined}
       />
-      <div className={"flex justify-between"}>
-        <Link href={"/posts"}>
-          <a className={"link-button hover:text-blue-500"}>返回列表</a>
+      <div className={'flex justify-between'}>
+        <Link href={'/posts'}>
+          <a className={'link-button hover:text-blue-500'}>返回列表</a>
         </Link>
         <div>
           <span
-            className={"link-button mr-8 hover:text-blue-500"}
+            className={'link-button mr-8 hover:text-blue-500'}
             onClick={handleEditClick}
           >
             编辑
           </span>
           <span
-            className={"link-button hover:text-red-500"}
+            className={'link-button hover:text-red-500'}
             onClick={handleDeleteClick}
           >
             删除
           </span>
         </div>
       </div>
-      <h2 className={"text-5xl font-bold py-8"}>
+      <h2 className={'text-5xl font-bold py-8 break-words'}>
         {post?.title}
-        <span className={'text-2xl font-normal ml-16 opacity-40'}>
-          {moment(new Date(post?.created_at || "")).format("YYYY-MM-DD")}
-        </span>
+        {/*<span className={"max-w-full break-words"}>*/}
+        {/*</span>*/}
+        <p className={'text-2xl font-normal mt-4 opacity-40'}>
+          {moment(new Date(post?.created_at || '')).format('YYYY-MM-DD')}
+        </p>
       </h2>
       <article
-        className={"markdown-body"}
-        dangerouslySetInnerHTML={{ __html: html }}
+        className={'markdown-body'}
+        dangerouslySetInnerHTML={{__html: html}}
       />
     </div>
   );
@@ -145,8 +147,8 @@ export const getServerSideProps: GetServerSideProps<PostProps, { id: string }> =
   withSessionSsr(async (context) => {
     const post = context.params?.id
       ? await prisma?.post.findUnique({
-          where: { id: parseInt(context.params.id.toString()) },
-        })
+        where: {id: parseInt(context.params.id.toString())},
+      })
       : null;
 
     const user = context.req.session.user || null;

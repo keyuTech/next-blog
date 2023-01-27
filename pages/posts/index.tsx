@@ -38,7 +38,7 @@ const PostsIndex: NextPage<Props> = (props) => {
   };
 
   return (
-    <div className={"container mx-auto p-16 h-full"}>
+    <div className={"container mx-auto p-8 md:p-16 h-full"}>
       <h1 className={"mb-8 flex justify-between items-center"}>
         <span className={"text-3xl font-bold"}>文章列表</span>
         <span className={"button"} onClick={handleCreateClick}>
@@ -55,7 +55,7 @@ const PostsIndex: NextPage<Props> = (props) => {
           }}
           className={"mb-8 cursor-pointer"}
         >
-          <h3 className={"post-title"}>{post.title}</h3>
+          <h3 className={"post-title overflow-hidden text-ellipsis"}>{post.title}</h3>
           <article
             className={"artical-summary line-clamp-4"}
             dangerouslySetInnerHTML={{ __html: marked.parse(post.content) }}

@@ -3,7 +3,7 @@ import logo from "../public/seele-logo.svg";
 
 function useHeader() {
   const header = (
-    <div className={"flex justify-between items-center border-b-2 px-8 fixed top-0 right-0 left-0 z-50 bg-white"}>
+    <div className={"flex justify-between items-center px-8 absolute top-0 right-0 left-0 bg-transparent"}>
       <Link href={"/"}>
         <a className={'w-16 h-16'}>
           <img src={logo.src} alt="logo" width={64} height={64} />
