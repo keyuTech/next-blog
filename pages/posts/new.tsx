@@ -77,7 +77,7 @@ const PostsNew: NextPage = (props) => {
       />
       <div className={"flex justify-between"}>
         <Link href={"/posts"}>
-          <a className={"link-button hover:text-blue-500"}>返回列表</a>
+          <a className={"link-button hover:text-active-text font-bold"}>返回列表</a>
         </Link>
       </div>
       {form}

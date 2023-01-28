@@ -97,8 +97,8 @@ const Home: NextPage<HomeProps> = (props) => {
       </section>
       <div className={'container mx-auto p-4 md:py-12 md:max-w-7xl'}>
         <Link href={'/posts'}>
-          <a className={'text-3xl font-bold mb-8 inline-block'}>
-            {'全部文章 ->'}
+          <a className={'text-3xl font-bold mb-8 inline-block hover:text-active-text'}>
+            {'前往文章列表 ->'}
           </a>
         </Link>
         <div className={'flex flex-wrap justify-between'}>
@@ -112,7 +112,7 @@ const Home: NextPage<HomeProps> = (props) => {
               <div className={'flex justify-between'}>
                 <span
                   className={
-                    'button hover:text-blue-500 hover:border-blue-500 mb-4'
+                    'button hover:text-active-text mb-4 font-bold'
                   }
                   onClick={handleButtonClick}
                 >

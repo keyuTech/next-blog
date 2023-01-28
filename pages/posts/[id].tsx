@@ -108,17 +108,17 @@ const PostDetail: NextPage = (props: PostProps) => {
       />
       <div className={'flex justify-between'}>
         <Link href={'/posts'}>
-          <a className={'link-button hover:text-blue-500'}>返回列表</a>
+          <a className={'link-button hover:text-active-text font-bold'}>返回列表</a>
         </Link>
         <div>
           <span
-            className={'link-button mr-8 hover:text-blue-500'}
+            className={'link-button mr-8 hover:text-active-text font-bold'}
             onClick={handleEditClick}
           >
             编辑
           </span>
           <span
-            className={'link-button hover:text-red-500'}
+            className={'link-button hover:text-red-500 font-bold'}
             onClick={handleDeleteClick}
           >
             删除
