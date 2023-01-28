@@ -57,7 +57,7 @@ const PostsIndex: NextPage<Props> = (props) => {
         >
           <h3 className={"post-title overflow-hidden text-ellipsis"}>{post.title}</h3>
           <article
-            className={"artical-summary line-clamp-4"}
+            className={"artical-summary line-clamp-4 max-h-[120px]"}
             dangerouslySetInnerHTML={{ __html: marked.parse(post.content) }}
           />
         </div>

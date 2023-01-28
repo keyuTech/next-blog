@@ -59,7 +59,7 @@ const Home: NextPage<HomeProps> = (props) => {
         <h4 className={'post-title w-full overflow-hidden whitespace-nowrap text-ellipsis'}>{post.title}</h4>
         <p className={'mb-4 opacity-40'}>{moment(new Date(post.created_at)).format('YYYY-MM-DD')}</p>
         <article
-          className={`article-${type} ${type === 'summary' ? 'line-clamp-4 truncate' : ''} max-h-28 text-base`}
+          className={`article-${type} ${type === 'summary' ? 'line-clamp-4 truncate' : ''} max-h-[120px] text-base`}
           dangerouslySetInnerHTML={{
             __html: marked.parse(post.content),
           }}

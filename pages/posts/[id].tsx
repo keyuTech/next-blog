@@ -125,10 +125,8 @@ const PostDetail: NextPage = (props: PostProps) => {
           </span>
         </div>
       </div>
-      <h2 className={'text-5xl font-bold py-8 break-words'}>
+      <h2 className={'text-2xl md:text-5xl font-bold py-8 break-words'}>
         {post?.title}
-        {/*<span className={"max-w-full break-words"}>*/}
-        {/*</span>*/}
         <p className={'text-2xl font-normal mt-4 opacity-40'}>
           {moment(new Date(post?.created_at || '')).format('YYYY-MM-DD')}
         </p>
