@@ -82,7 +82,7 @@ const Home: NextPage<HomeProps> = (props) => {
 
   return (
     <div className={'home h-full w-full'}>
-      <section className={'parallax relative flex justify-center items-center aspect-video overflow-hidden'}>
+      <section className={'parallax relative w-full flex justify-center items-center aspect-video overflow-hidden'}>
         <img src={hill1.src} className={'hill1'} style={{top: offset * 0.5 + 'px'}}/>
         <img src={hill2.src} className={'hill2'}/>
         <img src={hill3.src} className={'hill3'}/>
