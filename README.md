@@ -1,6 +1,8 @@
-Next-Blog是基于Next.js SSR构建的Blog系统，包含登录/注册/创建文章/修改文章/删除文章等功能
+Next-Blog is a blog system based on Next.js SSR，including some functions like 
+login/register/create post/delete 
+post/edit post etc.
 
-主要技术：
+Main Techs：
 * Backend：
   * Prisma
   * PostgreSQL
